@@ -46,4 +46,18 @@ describe Rejoinder do
       expect(subject.to_h[:foo][:bar]).to eq 'baz'
     end
   end
+
+  describe "to_json" do
+    it "returns a JSON string" do
+      subject.foo = 'bar'
+      expect(subject.to_json).to be_a String
+      expect(subject.to_json).to eq "{\"foo\":\"bar\"}"
+    end
+
+    context "when Rejoinder is empty" do
+      it "returns an empty JSON string" do
+        expect(subject.to_json).to eq "{}"
+      end
+    end
+  end
 end
