@@ -75,4 +75,34 @@ describe Rejoinder do
       expect(subject.values).to eq [{:bar => 'baz'}, 1]
     end
   end
+
+  describe "missing methods" do
+    context "when missing method is a setter" do
+      it "creates the getter method" do
+        expect(subject).to_not respond_to(:foo)
+        subject.foo = 'bar'
+        expect(subject).to respond_to(:foo)
+        expect(subject.foo).to eq 'bar'
+      end
+    end
+
+    context "when missing method is a getter" do
+      it "creates the getter method" do
+        expect(subject).to_not respond_to(:foo)
+        subject.foo
+        expect(subject).to respond_to(:foo)
+      end
+      
+      it "sets the method equal to an empty Rejoinder" do
+        expect(subject.foo).to be_a Rejoinder
+      end
+    end
+
+    it "chain to create a nested object structure" do
+      subject.abc.foo = 'bar'
+      expect(subject).to respond_to(:abc)
+      expect(subject.abc).to be_a Rejoinder
+      expect(subject.abc.foo).to eq 'bar'
+    end
+  end
 end

@@ -27,4 +27,14 @@ class Rejoinder < OpenStruct
   def empty?
     @table.empty?
   end
+
+  def method_missing methd, *args
+    methd.to_s.end_with?('=') ? super(methd, *args) : super(make_setter(methd), Rejoinder.new)
+  end
+
+  private
+
+  def make_setter getter
+    getter.to_s.concat('=').to_sym
+  end
 end
