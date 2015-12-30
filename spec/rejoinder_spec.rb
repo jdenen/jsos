@@ -32,4 +32,18 @@ describe Rejoinder do
       end
     end
   end
+
+  describe "#to_h" do
+    it "returns a Hash" do
+      subject.foo = 'bar'
+      expect(subject.to_h).to be_a Hash
+      expect(subject.to_h).to eq({:foo => 'bar'})
+    end
+
+    it "converts nested Rejoinder objects into hashes"  do
+      subject.foo = Rejoinder.new({:bar => 'baz'})
+      expect(subject.to_h[:foo]).to be_a Hash
+      expect(subject.to_h[:foo][:bar]).to eq 'baz'
+    end
+  end
 end
