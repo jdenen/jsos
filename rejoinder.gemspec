@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rejoinder/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rejoinder"
-  spec.version       = Rejoinder::VERSION
+  spec.version       = "0.0.1"
   spec.authors       = ["Johnson Denen"]
   spec.email         = ["johnson.denen@gmail.com"]
 
