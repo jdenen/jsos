@@ -16,6 +16,14 @@ class Rejoinder < OpenStruct
     self.to_h.to_json
   end
 
+  def keys
+    self.to_h.keys
+  end
+
+  def values
+    self.to_h.values
+  end
+
   def empty?
     @table.empty?
   end

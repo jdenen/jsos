@@ -60,4 +60,19 @@ describe Rejoinder do
       end
     end
   end
+
+  describe "#keys" do
+    it "returns top-level keys" do
+      subject.foo = {:bar => 'baz'}
+      expect(subject.keys).to eq [:foo]
+    end
+  end
+
+  describe "#values" do
+    it "returns top-level values" do
+      subject.foo = {:bar => 'baz'}
+      subject.one = 1
+      expect(subject.values).to eq [{:bar => 'baz'}, 1]
+    end
+  end
 end
