@@ -1,5 +1,12 @@
-require "rejoinder/version"
+require "ostruct"
+require "json"
 
-module Rejoinder
-  # Your code goes here...
+class Rejoinder < OpenStruct
+  def initialize(state = nil)
+    state.is_a?(String) ? super(JSON.parse state) : super(state)
+  end
+
+  def empty?
+    @table.empty?
+  end
 end
