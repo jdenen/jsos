@@ -1,5 +1,6 @@
 # JSOS
 [![Build Status](https://travis-ci.org/jdenen/jsos.svg?branch=master)](https://travis-ci.org/jdenen/jsos)
+[![Gem Version](https://badge.fury.io/rb/jsos.svg)](https://badge.fury.io/rb/jsos)
 
 Use Ruby's OpenStruct object to represent JSON strings, making nested data a method call away.
 
