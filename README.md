@@ -44,7 +44,7 @@ jsos.to_json
 #=> "{\"foo\":\"bar\"}"
 ```
 
-Missing getter methods are created with an empty JSOS object as its value. This allows you to chain methods to created nested JSON strings.
+A missing getter method is created with an empty JSOS object as its value. This allows you to chain methods to created nested JSON strings.
 
 ```ruby
 # nesting empty JSON objects
