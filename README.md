@@ -61,6 +61,16 @@ jsos.to_json
 #=> "{\"abc\":{\"foo\":\"bar\"}, \"xyz\":{\"foo\":\"baz\"}}"
 ```
 
+You can grab object level keys and values like a normal Ruby Hash. These do not return nested keys/values.
+
+```ruby
+jsos = JSOS.new("{\"abc\":{\"foo\":\"bar\"}, \"xyz\":{\"foo\":\"baz\"}}")
+jsos.keys
+#=> ["abc", "xyz"]
+jsos.values
+#=> ["#<JSOS foo=\"bar\">", "#<JSOS foo=\"baz\">"]
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jdenen/jsos.
