@@ -1,14 +1,14 @@
 require "ostruct"
 require "json"
 
-class Rejoinder < OpenStruct
+class JSOS < OpenStruct
   def initialize(state = nil)
     state.is_a?(String) ? super(JSON.parse state) : super(state)
   end
 
   def to_h
     @table.each_with_object({}) do |(key, value), new_hash|
-      new_hash[key] = value.is_a?(Rejoinder) ? value.to_h : value
+      new_hash[key] = value.is_a?(JSOS) ? value.to_h : value
     end
   end
 
@@ -29,7 +29,7 @@ class Rejoinder < OpenStruct
   end
 
   def method_missing methd, *args
-    methd.to_s.end_with?('=') ? super(methd, *args) : super(make_setter(methd), Rejoinder.new)
+    methd.to_s.end_with?('=') ? super(methd, *args) : super(make_setter(methd), JSOS.new)
   end
 
   private

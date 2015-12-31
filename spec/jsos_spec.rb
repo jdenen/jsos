@@ -1,33 +1,33 @@
 require 'spec_helper'
 
-describe Rejoinder do
+describe JSOS do
   describe ".new" do
     context "without argument" do
-      it "returns an empty Rejoinder object" do
-        object = Rejoinder.new
-        expect(object).to be_a Rejoinder
+      it "returns an empty JSOS object" do
+        object = JSOS.new
+        expect(object).to be_a JSOS
         expect(object).to be_empty
       end
     end
 
     context "with a valid JSON string argument" do
-      it "parses into a Rejoinder object" do
-        object = Rejoinder.new("{\"foo\":\"bar\"}")
-        expect(object).to be_a Rejoinder
+      it "parses into a JSOS object" do
+        object = JSOS.new("{\"foo\":\"bar\"}")
+        expect(object).to be_a JSOS
         expect(object).to_not be_empty
       end
     end
 
     context "with an invalid JSON string argument" do
       it "raises a ParserError" do
-        expect{ Rejoinder.new("foo") }.to raise_error(JSON::ParserError)
+        expect{ JSOS.new("foo") }.to raise_error(JSON::ParserError)
       end
     end
 
     context "with a Hash argument" do
-      it "parses into a Rejoinder object" do
-        object = Rejoinder.new({foo: "bar"})
-        expect(object).to be_a Rejoinder
+      it "parses into a JSOS object" do
+        object = JSOS.new({foo: "bar"})
+        expect(object).to be_a JSOS
         expect(object).to_not be_empty
       end
     end
@@ -40,8 +40,8 @@ describe Rejoinder do
       expect(subject.to_h).to eq({:foo => 'bar'})
     end
 
-    it "converts nested Rejoinder objects into hashes"  do
-      subject.foo = Rejoinder.new({:bar => 'baz'})
+    it "converts nested JSOS objects into hashes"  do
+      subject.foo = JSOS.new({:bar => 'baz'})
       expect(subject.to_h[:foo]).to be_a Hash
       expect(subject.to_h[:foo][:bar]).to eq 'baz'
     end
@@ -54,7 +54,7 @@ describe Rejoinder do
       expect(subject.to_json).to eq "{\"foo\":\"bar\"}"
     end
 
-    context "when Rejoinder is empty" do
+    context "when JSOS is empty" do
       it "returns an empty JSON string" do
         expect(subject.to_json).to eq "{}"
       end
@@ -93,15 +93,15 @@ describe Rejoinder do
         expect(subject).to respond_to(:foo)
       end
       
-      it "sets the method equal to an empty Rejoinder" do
-        expect(subject.foo).to be_a Rejoinder
+      it "sets the method equal to an empty JSOS" do
+        expect(subject.foo).to be_a JSOS
       end
     end
 
     it "chain to create a nested object structure" do
       subject.abc.foo = 'bar'
       expect(subject).to respond_to(:abc)
-      expect(subject.abc).to be_a Rejoinder
+      expect(subject.abc).to be_a JSOS
       expect(subject.abc.foo).to eq 'bar'
     end
   end
