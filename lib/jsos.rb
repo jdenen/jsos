@@ -42,7 +42,9 @@ class JSOS < OpenStruct
 
   # @param state [String|Hash] defaults to nil
   def initialize(state = nil)
-    state.is_a?(String) ? super(JSON.parse state) : super(state)
+    return super if state.nil?
+    state_hash = state.is_a?(String) ? JSON.parse(state) : state
+    super parse_state_hash(state_hash)
   end
 
   # @return [Hash]
@@ -82,5 +84,13 @@ class JSOS < OpenStruct
   # @api private
   def make_setter getter
     getter.to_s.concat('=').to_sym
+  end
+
+  # @api private
+  def parse_state_hash state
+    state.inject({}) do |hash, (key, value)|
+      merge_value = value.is_a?(Hash) ? {key => JSOS.new(value)} : {key => value}
+      hash.merge(merge_value)
+    end
   end
 end

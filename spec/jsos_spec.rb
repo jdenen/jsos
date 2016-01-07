@@ -16,6 +16,13 @@ describe JSOS do
         expect(object).to be_a JSOS
         expect(object).to_not be_empty
       end
+
+      it "parses nested JSON into JSOS objects" do
+        json = "{\"foo\":{\"abc\":\"123\"}}"
+        object = JSOS.new(json)
+        expect(object).to be_a JSOS
+        expect(object.foo).to be_a JSOS
+      end
     end
 
     context "with an invalid JSON string argument" do
@@ -29,6 +36,13 @@ describe JSOS do
         object = JSOS.new({foo: "bar"})
         expect(object).to be_a JSOS
         expect(object).to_not be_empty
+      end
+
+      it "parses nested Hash into JSOS objects" do
+        hash = {foo: {abc: "123"}}
+        object = JSOS.new(hash)
+        expect(object).to be_a JSOS
+        expect(object.foo).to be_a JSOS
       end
     end
   end
