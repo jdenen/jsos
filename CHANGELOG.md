@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.1.0 (Jan 12, 2016)
+* Add `JSOS#each`
+
 ## v1.0.1 (Jan 07, 2016)
 * Fix issue where initial nested data was not converted into new JSOS objects (#1)
 * Create CHANGELOG
