@@ -22,6 +22,13 @@ describe JSOS do
         object = JSOS.new(json)
         expect(object).to be_a JSOS
         expect(object.foo).to be_a JSOS
+        expect(object.foo.abc).to eq "123"
+      end
+
+      it "parses a null JSON object into nil" do
+        object = JSOS.new("{\"foo\":null}")
+        expect(object).to be_a JSOS
+        expect(object.foo).to be_nil
       end
     end
 
@@ -43,6 +50,13 @@ describe JSOS do
         object = JSOS.new(hash)
         expect(object).to be_a JSOS
         expect(object.foo).to be_a JSOS
+        expect(object.foo.abc).to eq "123"
+      end
+
+      it "parses a nil value" do
+        object = JSOS.new(foo: nil)
+        expect(object).to be_a JSOS
+        expect(object.foo).to be_nil
       end
     end
   end
@@ -98,6 +112,14 @@ describe JSOS do
         expect(subject).to respond_to(:foo)
         expect(subject.foo).to eq 'bar'
       end
+
+      context "when value is nil" do
+        it "creates a getter method that returns nil" do
+          expect(subject).to_not respond_to(:xyz)
+          subject.xyz = nil
+          expect(subject.xyz).to be_nil
+        end
+      end
     end
 
     context "when missing method is a getter" do
@@ -117,6 +139,28 @@ describe JSOS do
       expect(subject).to respond_to(:abc)
       expect(subject.abc).to be_a JSOS
       expect(subject.abc.foo).to eq 'bar'
+    end
+  end
+
+  describe "#each" do
+    subject{ JSOS.new(:foo => "bar") }
+
+    context "when given a block argument" do
+      it "yields to a block" do
+        expect{ |blk| subject.each(&blk) }.to yield_control
+      end
+
+      it "yields key, value pairs" do
+        subject.abc = "xyz"
+        expect{ |blk| subject.each(&blk) }.to yield_successive_args([:foo, "bar"], [:abc, "xyz"])
+      end
+    end
+
+    context "when called on an empty object" do
+      it "does not yield" do
+        jsos = JSOS.new
+        expect{ |blk| jsos.each(&blk) }.to_not yield_control
+      end
     end
   end
 end

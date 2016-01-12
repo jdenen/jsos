@@ -69,6 +69,10 @@ class JSOS < OpenStruct
     self.to_h.values
   end
 
+  def each &block
+    self.to_h.each{ |k, v| yield k, v }
+  end
+
   # @return [true|false]
   def empty?
     @table.empty?
