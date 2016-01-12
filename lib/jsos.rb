@@ -47,6 +47,7 @@ class JSOS < OpenStruct
     super parse_state_hash(state_hash)
   end
 
+  # Convert the object to a Hash.
   # @return [Hash]
   def to_h
     @table.each_with_object({}) do |(key, value), new_hash|
@@ -54,25 +55,33 @@ class JSOS < OpenStruct
     end
   end
 
+  # Convert the object to a JSON string.
   # @return [String]
   def to_json
     self.to_h.to_json
   end
 
+  # Return all method names on the object.
   # @return [Array<Symbol>]
   def keys
     self.to_h.keys
   end
 
+  # Return all method values on the object.
   # @return [Array]
   def values
     self.to_h.values
   end
 
+  # Yield to block for each method on the object, passing method
+  # name and value as parameters to the block.
+  # @see [Enumerator#each]
+  # @return [Hash|Enumerator]
   def each &block
     self.to_h.each{ |k, v| yield k, v }
   end
 
+  # Return false if no methods exist on the object. Otherwise, true.
   # @return [true|false]
   def empty?
     @table.empty?
