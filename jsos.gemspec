@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "jsos"
-  spec.version       = "1.1.0"
+  spec.version       = "1.2.0"
   spec.authors       = ["Johnson Denen"]
   spec.email         = ["johnson.denen@gmail.com"]
 

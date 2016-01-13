@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.2.0 (Jan 13, 2016)
+* Add `JSOS#to_a`
+* Alias `JSOS#to_a` to `JSOS#to_ary`
+
 ## v1.1.0 (Jan 12, 2016)
 * Add `JSOS#each`
 
