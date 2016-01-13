@@ -163,4 +163,21 @@ describe JSOS do
       end
     end
   end
+
+  describe "#to_a" do
+    subject{ JSOS.new(:foo => "bar", :abc => "xyz") }
+
+    it "returns an array of arrays" do
+      expect(subject.to_a).to be_an(Array).and all(be_an Array)
+    end
+
+    it "returns the method name and method value in each sub-array" do
+      expect(subject.to_a.first).to eq [:foo, "bar"]
+      expect(subject.to_a.last).to eq [:abc, "xyz"]
+    end
+
+    it "is aliased to #to_ary" do
+      expect(subject.to_ary).to eq subject.to_a
+    end
+  end
 end

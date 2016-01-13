@@ -81,6 +81,13 @@ class JSOS < OpenStruct
     self.to_h.each{ |k, v| yield k, v }
   end
 
+  # Convert the object to an Array.
+  # @return [Array]
+  def to_a
+    self.to_h.to_a
+  end
+  alias_method :to_ary, :to_a
+
   # Return false if no methods exist on the object. Otherwise, true.
   # @return [true|false]
   def empty?
