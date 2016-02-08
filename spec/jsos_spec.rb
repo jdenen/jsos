@@ -32,6 +32,25 @@ describe JSOS do
       end
     end
 
+    context "when parsing an array of valid JSON objects" do
+      let(:jsos){ JSOS.new("{\"abc\":[{\"foo\":\"bar\"}, {\"foo\":\"baz\"}]}") }
+      
+      it "parses each into a JSOS object" do
+        expect(jsos.abc).to be_an(Array).and all(be_a JSOS)
+      end
+
+      it "can be chained to access array object values" do
+        expect(jsos.abc.first.foo).to eq "bar"
+      end
+    end
+
+    context "when parsing an array of non-JSON objects" do
+      it "keeps the array structure"do
+        object = JSOS.new("{\"abc\":[1, 2, 3]}")
+        expect(object.abc).to be_an(Array).and all(be_a Fixnum)
+      end
+    end
+
     context "with an invalid JSON string argument" do
       it "raises a ParserError" do
         expect{ JSOS.new("foo") }.to raise_error(JSON::ParserError)

@@ -109,7 +109,16 @@ class JSOS < OpenStruct
   # @api private
   def parse_state_hash state
     state.inject({}) do |hash, (key, value)|
-      merge_value = value.is_a?(Hash) ? {key => JSOS.new(value)} : {key => value}
+      merge_value = case value
+                    when Hash
+                      { key => JSOS.new(value) }
+                    when Array
+                      array = value.map{ |v| JSOS.new(v) rescue v }
+                      { key => array }
+                    else
+                      { key => value }
+                    end
+
       hash.merge(merge_value)
     end
   end
